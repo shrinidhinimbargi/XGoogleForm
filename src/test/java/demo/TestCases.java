@@ -57,18 +57,23 @@ public class TestCases {
                 driver.manage().window().maximize();
         }
 
-        @Test
+        @Test // testcase01 - filling the form details and submitting it and confirmig
+              // response page
         public void testCase01() throws InterruptedException {
 
-                driver.get("https://web-locators-static-site-qa.vercel.app/Wait%20onTime");
-
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
                 Wrappers form = new Wrappers(driver);
                 form.navigateToForm();
-                Thread.sleep(10000);
+                wait.until(ExpectedConditions.urlContains(
+                                "https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform?pli=1"));
+
                 form.verifyFormUrl();
 
                 Thread.sleep(2000);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By
+                                .xpath("//div[@class='Xb9hP']//div[@class='ndJi5d snByac']/preceding-sibling::input")));
+
                 WebElement name = driver
                                 .findElement(By.xpath(
                                                 "//div[@class='Xb9hP']//div[@class='ndJi5d snByac']/preceding-sibling::input"));
@@ -99,34 +104,40 @@ public class TestCases {
                 WebElement element6 = driver.findElement(By.xpath("//div[@id='i39']/div[2]"));
                 form.clickButton(element6);
 
-                Thread.sleep(4000);
+                wait.until(ExpectedConditions.presenceOfElementLocated(
+                                By.xpath("//div[@class='Qr7Oae']//span[text()='Choose']//parent::div")));
                 WebElement element7 = driver
                                 .findElement(By.xpath("//div[@class='Qr7Oae']//span[text()='Choose']//parent::div"));
                 form.clickButton(element7);
 
-                Thread.sleep(3000);
-
+                wait.until(ExpectedConditions.presenceOfElementLocated(
+                                By.xpath("//div[@class='OA0qNb ncFHed QXL7Te']//span[text()='Mr']//parent::div")));
                 WebElement element8 = driver
                                 .findElement(By.xpath(
                                                 "//div[@class='OA0qNb ncFHed QXL7Te']//span[text()='Mr']//parent::div"));
                 form.clickButton(element8);
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='date']")));
                 WebElement element9 = driver.findElement(By.xpath("//input[@type='date']"));
-                Thread.sleep(10000);
+                Thread.sleep(2000);
                 form.selectDate(element9, 3, 8, 2024);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
+                                "//*[@id='mG61Hd']/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input")));
                 WebElement element10 = driver.findElement(By.xpath(
                                 "//*[@id='mG61Hd']/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input"));
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
+                                "//*[@id='mG61Hd']/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div[3]/div/div[1]/div/div[1]/input")));
                 WebElement element11 = driver.findElement(By.xpath(
                                 "//*[@id='mG61Hd']/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div[3]/div/div[1]/div/div[1]/input"));
-                Thread.sleep(4000);
+                Thread.sleep(2000);
                 form.fieldToFill(element10, "07");
-                Thread.sleep(4000);
+                Thread.sleep(2000);
                 // driver.wait(2000);
                 form.fieldToFill(element11, "30");
-                Thread.sleep(4000);
+                // Thread.sleep(4000);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='lRwqcd']/div")));
                 WebElement element14 = driver.findElement(By.xpath("//div[@class='lRwqcd']/div"));
                 form.clickButton(element14);
-                Thread.sleep(5000);
+                Thread.sleep(2000);
                 String currentUrl = driver.getCurrentUrl();
                 form.confirmResponseForm(currentUrl);
         }
